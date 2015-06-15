@@ -4,6 +4,10 @@
   "description": "Webpack boilerplate to create Targetprocess mashup.",
   "keywords": ["webpack", "targetprocess", "mashup"],
   "author": "Aliaksei Shytkin <shitkin@targetprocess.com>",
+  "scripts": {
+    "build": "webpack",
+    "build-production": "webpack --config webpack-production.config.js"
+  },
   "licenses": [
     {
         "type": "MIT",
