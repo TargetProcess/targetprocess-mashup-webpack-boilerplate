@@ -5,11 +5,15 @@
 
 ## Usage
 
+Install webpack globally `npm install -g webpack`
+
 Clone repository. 
 
 Run `npm install`.
 
 Edit `make-webpack-config.js` to make suitable for your needs. Edit source code in `src` folder.
+
+Run `webpack` or `webpack --config webpack-production.config.js`
 
 ### makeWebpackConfig(options)
 
