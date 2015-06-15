@@ -1,0 +1,11 @@
+.tmwb-overlay {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: 150px;
+    top: 50px;
+    font-weight: bold;
+    background-color: #fff;
+    padding: 10px;
+    z-index: 100001;
+}

@@ -1,0 +1,45 @@
+
+# Targetprocess Mashup Webpack Boilerplate
+
+[Webpack](http://webpack.github.io) boilerplate to create Targetprocess mashup.
+
+## Usage
+
+Clone repository. 
+
+Run `npm install`.
+
+Edit `make-webpack-config.js` to make suitable for your needs. Edit source code in `src` folder.
+
+### makeWebpackConfig(options)
+
+ - **mashupName** name of mashup
+ - **production** minimize output and prevent debug tools, false by default
+ - **mashupManager** optimize mashup to be one file to pasted into Mashup Manager textarea
+
+## Main Features
+
+* `style-loader`, `css-loader`, `babel-loader` are installed by default
+* Global variable `mashup` contains config data
+* Auto-generate config module from JSON file `config.json`.
+* Auto-generate system configs from `manifest.json`
+* Prevent chunks to be loaded automatically
+
+## Externals
+
+By default these modules are resolved as external
+
+* `jQuery`
+* `Underscore`
+* `tau/*`
+* `tp3/*`
+* `tp/*`
+
+## TODO
+
+* wrap external API in modules
+
+## License
+
+MIT (http://www.opensource.org/licenses/mit-license.php)
+
