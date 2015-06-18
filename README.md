@@ -37,10 +37,6 @@ By default these modules are resolved as external
 * `tp3/*`
 * `tp/*`
 
-## TODO
-
-* wrap external API in modules
-
 ## License
 
 MIT (http://www.opensource.org/licenses/mit-license.php)
