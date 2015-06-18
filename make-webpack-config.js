@@ -42,9 +42,9 @@ var makeWebpackConfig = function(opts) {
     config.output = {
         filename: '[name].js',
         path: 'dist',
-        chunkFilename: 'chunks/[id].[name].js'
+        chunkFilename: 'chunks/[id].[name].js',
+        pathinfo: !opts.production
     };
-
 
     config.module = {
         loaders: [{
@@ -58,7 +58,8 @@ var makeWebpackConfig = function(opts) {
     };
 
     if (!opts.production) {
-        opts.devtool = 'eval-source-map';
+        config.debug = true;
+        config.devtool = 'eval-source-map';
     }
 
     config.plugins = [
@@ -105,4 +106,4 @@ var makeWebpackConfig = function(opts) {
     return config;
 };
 
-module.exports = makeWebpackConfig
+module.exports = makeWebpackConfig;

@@ -13,5 +13,5 @@ item.$element.on('click', () => {
     require.ensure(['./overlay'], (require) => {
 
         require('./overlay')();
-    });
+    }, 'overlay');
 });
