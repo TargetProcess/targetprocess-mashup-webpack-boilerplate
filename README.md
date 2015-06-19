@@ -13,6 +13,12 @@ Edit `make-webpack-config.js` to make suitable for your needs. Edit source code 
 
 Run `npm run build` or `npm run build-production`.
 
+You can install [targetprocess-mashup-uploader](https://github.com/TargetProcess/targetprocess-mashup-uploader) to immediately upload your build to Mashup Manager
+
+```
+targetprocess-mashup-uploader --host yourhost --login admin --password admin --name MyMashup --watch dist/index.js
+```
+
 ### makeWebpackConfig(options)
 
  - **mashupName** name of mashup
