@@ -9,7 +9,7 @@ var makeWebpackConfig = function(opts) {
 
     var opts = _.extend({
         // mashup unique name
-        mashupName: 'TMWB',
+        mashupName: __dirname.split(path.sep).pop(),
         // minimize output and prevent dev tools
         production: false,
         // will mashup be used by paste to mashup manager or as bunch of files by library
