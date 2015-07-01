@@ -101,7 +101,10 @@ var makeWebpackConfig = function(opts) {
         }));
     }
 
-    config.externals = ['jQuery', 'Underscore', /^tp3\//, /^tau\//, /^tp\//];
+    config.externals = [{
+        jquery: 'jQuery',
+        underscore: 'Underscore'
+    }, 'jQuery', 'Underscore', /^tp3\//, /^tau\//, /^tp\//];
 
     return config;
 };
