@@ -2,19 +2,23 @@ var path = require('path');
 var webpack = require('webpack');
 var _ = require('lodash');
 
+var pkg = require('./package.json');
+
 var TargetprocessMashupPlugin = require('targetprocess-mashup-webpack-plugin');
 var CombineAssetsPlugin = require('combine-assets-plugin');
 
 var makeWebpackConfig = function(opts) {
 
-    var opts = _.extend({
-        // mashup unique name
-        mashupName: __dirname.split(path.sep).pop(),
-        // minimize output and prevent dev tools
-        production: false,
-        // will mashup be used by paste to mashup manager or as bunch of files by library
-        mashupManager: true
-    }, opts);
+    opts = opts || {};
+
+    // mashup unique name
+    opts.mashupName = opts.mashupName || __dirname.split(path.sep).pop();
+
+    // minimize output and prevent dev tools
+    opts.production = opts.hasOwnProperty('production') ? opts.production : false;
+
+    // will mashup be used by paste to mashup manager or as bunch of files by library
+    opts.mashupManager = opts.hasOwnProperty('mashupManager') ? opts.mashupManager : true;
 
     var mashupName = opts.mashupName;
 
@@ -65,6 +69,12 @@ var makeWebpackConfig = function(opts) {
     config.plugins = [
         new TargetprocessMashupPlugin(mashupName, {
             useConfig: true
+        }),
+        new webpack.DefinePlugin({
+            __DEV__: !opts.production
+        }),
+        new webpack.BannerPlugin('v' + pkg.version + ' Build ' + String(new Date()), {
+            entryOnly: true
         })
     ];
 

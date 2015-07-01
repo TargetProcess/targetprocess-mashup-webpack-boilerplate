@@ -19,7 +19,6 @@
     "combine-assets-plugin": "targetprocess/combine-assets-plugin",
     "css-loader": "^0.14.5",
     "file-loader": "^0.8.4",
-    "lodash": "^3.9.3",
     "style-loader": "^0.12.3",
     "targetprocess-mashup-config-loader": "targetprocess/targetprocess-mashup-config-loader",
     "targetprocess-mashup-manifest-loader": "targetprocess/targetprocess-mashup-manifest-loader",
