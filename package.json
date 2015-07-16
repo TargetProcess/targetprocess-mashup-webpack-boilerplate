@@ -25,7 +25,5 @@
     "targetprocess-mashup-webpack-plugin": "targetprocess/targetprocess-mashup-webpack-plugin",
     "webpack": "^1.9.10"
   },
-  "dependencies": {
-    "upsidedown": "0.0.5"
-  }
+  "dependencies": {}
 }
