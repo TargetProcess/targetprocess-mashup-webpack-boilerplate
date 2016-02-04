@@ -1,6 +1,8 @@
 const path = require('path');
 
 const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+
 const TargetprocessMashupPlugin = require('targetprocess-mashup-webpack-plugin');
 const CombineAssetsPlugin = require('combine-assets-plugin');
 
@@ -41,6 +43,8 @@ const createConfig = (options_) => {
         jsonpFunction: `webpackJsonp_mashup_${mashupName}`
     };
 
+    const localIdentName = options.production ? '[hash:base64]' : '[name]---[local]---[hash:base64:5]';
+
     config.module = {
         loaders: [{
             test: /\.js$/,
@@ -50,10 +54,13 @@ const createConfig = (options_) => {
             test: /\.css$/,
             loaders: [
                 'style',
-                'css'
+                `css?modules&importLoaders=1&localIdentName=${localIdentName}`,
+                'postcss'
             ]
         }]
     };
+
+    config.postcss = [autoprefixer];
 
     if (!options.production) {
 
