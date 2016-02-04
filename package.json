@@ -8,8 +8,10 @@
     "mashup"
   ],
   "scripts": {
-    "build": "webpack",
-    "build-production": "webpack --config webpack-production.config.js"
+    "start": "outputPath=$TARGETPROCESS_MASHUPS_PATH/$npm_package_name; rm -rf $outputPath; NODE_ENV=development webpack --config webpack/development.config.js --watch --output-path $outputPath",
+    "build:library": "outputPath=build/library; rm -rf $outputPath; NODE_ENV=production webpack  --config webpack/library.config.js --output-path $outputPath --progress",
+    "build:manager": "outputPath=build/manager; rm -rf $outputPath; NODE_ENV=production webpack --config webpack/manager.config.js --output-path $outputPath --progress",
+    "build:all": "npm run build:library && npm run build:manager"
   },
   "devDependencies": {
     "babel-loader": "^6.2.2",
