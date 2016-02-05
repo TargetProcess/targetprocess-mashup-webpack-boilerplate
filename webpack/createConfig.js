@@ -4,7 +4,6 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 
 const TargetprocessMashupPlugin = require('targetprocess-mashup-webpack-plugin');
-const CombineAssetsPlugin = require('combine-assets-plugin');
 
 const pkg = require('../package.json');
 
@@ -23,24 +22,21 @@ const createConfig = (options_) => {
     const config = {
         context: path.resolve(__dirname, '../src'),
         entry: {
-            configData: [`targetprocess-mashup-config?libraryTarget=${mashupName}&outputFile=${outputConfigFileName}!./config.json`],
-            index: ['./index.js']
+            index: [
+                './index.js',
+                `targetprocess-mashup-webpack-plugin/config-loader?libraryTarget=${mashupName}&outputFile=${outputConfigFileName}!./config.json`
+            ].concat(options.mashupManager ? [] : [
+                'targetprocess-mashup-webpack-plugin/manifest-loader!./manifest.json'
+            ])
         }
     };
-
-    if (!options.mashupManager) {
-
-        config.entry.manifestData = ['targetprocess-mashup-manifest!./manifest.json'];
-        config.entry.ignoreData = ['file?name=chunks/mashup.ignore!./mashup.ignore'];
-
-    }
 
     config.output = {
         filename: '[name].js',
         path: 'build',
         chunkFilename: 'chunks/[id].[name].[hash].js',
         pathinfo: !options.production,
-        jsonpFunction: `webpackJsonp_mashup_${mashupName}`
+        jsonpFunction: `webpackJsonp_mashup_${mashupName.replace(/-/g, '_')}`
     };
 
     const localIdentName = options.production ? '[hash:base64]' : '[name]---[local]---[hash:base64:5]';
@@ -71,7 +67,8 @@ const createConfig = (options_) => {
 
     config.plugins = [
         new TargetprocessMashupPlugin(mashupName, {
-            useConfig: true
+            useConfig: true,
+            foldersToIgnore: ['chunks']
         }),
         new webpack.DefinePlugin({
             'process.env': {
@@ -82,27 +79,6 @@ const createConfig = (options_) => {
             entryOnly: true
         })
     ];
-
-    var toConcat = {};
-    var toExclude = [
-        'configData.js',
-        'ignoreData.js',
-        'manifestData.js'
-    ];
-
-    if (options.mashupManager) {
-
-        toConcat = {
-            'index.js': [outputConfigFileName, 'index.js']
-        };
-        toExclude = toExclude.concat(outputConfigFileName);
-
-    }
-
-    config.plugins = config.plugins.concat(new CombineAssetsPlugin({
-        toConcat: toConcat,
-        toExclude: toExclude
-    }));
 
     if (options.mashupManager) {
 
