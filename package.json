@@ -8,7 +8,7 @@
     "mashup"
   ],
   "scripts": {
-    "start": "outputPath=build/curr; rm -rf $outputPath; NODE_ENV=development webpack --config webpack/development.config.js --watch --output-path $outputPath",
+    "start": "outputPath=$TARGETPROCESS_MASHUPS_PATH/$npm_package_name; rm -rf $outputPath; NODE_ENV=development webpack --config webpack/development.config.js --watch --output-path $outputPath",
     "build:development": "outputPath=build/development; rm -rf $outputPath; NODE_ENV=develoment webpack --config webpack/development.config.js --output-path $outputPath --progress;",
     "build:library:docs": "shjs scripts/buildLibraryDocs.js",
     "build:library": "outputPath=build/library; rm -rf $outputPath; NODE_ENV=production webpack --config webpack/library.config.js --output-path $outputPath --progress; npm run build:library:docs",

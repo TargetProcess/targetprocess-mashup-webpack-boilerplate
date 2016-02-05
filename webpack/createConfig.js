@@ -17,14 +17,12 @@ const createConfig = (options_) => {
 
     const mashupName = options.mashupName;
 
-    const outputConfigFileName = './mashup.config.js';
-
     const config = {
         context: path.resolve(__dirname, '../src'),
         entry: {
             index: [
                 './index.js',
-                `targetprocess-mashup-webpack-plugin/config-loader?libraryTarget=${mashupName}&outputFile=${outputConfigFileName}!./config.json`
+                `targetprocess-mashup-webpack-plugin/config-loader?libraryTarget=${mashupName}&outputFile=./mashup.config.js!./config.json`
             ].concat(options.mashupManager ? [] : [
                 'targetprocess-mashup-webpack-plugin/manifest-loader!./manifest.json'
             ])
@@ -68,7 +66,7 @@ const createConfig = (options_) => {
     config.plugins = [
         new TargetprocessMashupPlugin(mashupName, {
             useConfig: true,
-            foldersToIgnore: ['chunks']
+            foldersToIgnore: options.mashupManager ? [] : ['chunks']
         }),
         new webpack.DefinePlugin({
             'process.env': {
@@ -82,7 +80,6 @@ const createConfig = (options_) => {
 
     if (options.mashupManager) {
 
-        // produce single file index.js despite async chunks
         config.plugins = config.plugins.concat(new webpack.optimize.LimitChunkCountPlugin({
             maxChunks: 1
         }));
@@ -110,6 +107,7 @@ const createConfig = (options_) => {
     ];
 
     return config;
+
 };
 
 module.exports = createConfig;
