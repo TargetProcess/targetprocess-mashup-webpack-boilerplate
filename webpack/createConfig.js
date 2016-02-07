@@ -22,9 +22,9 @@ const createConfig = (options_) => {
         entry: {
             index: [
                 './index.js',
-                `targetprocess-mashup-webpack-plugin/config-loader?libraryTarget=${mashupName}&outputFile=./mashup.config.js!./config.json`
+                `!!targetprocess-mashup-webpack-plugin/config-loader?libraryTarget=${mashupName}&outputFile=./mashup.config.js!./config.json`
             ].concat(options.mashupManager ? [] : [
-                'targetprocess-mashup-webpack-plugin/manifest-loader!./manifest.json'
+                '!!targetprocess-mashup-webpack-plugin/manifest-loader!./manifest.json'
             ])
         }
     };
