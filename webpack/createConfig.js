@@ -2,10 +2,12 @@ const path = require('path');
 
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
+const tmp = require('tmp');
 
 const TargetprocessMashupPlugin = require('targetprocess-mashup-webpack-plugin');
 
 const pkg = require('../package.json');
+const tmpFile = tmp.fileSync();
 
 const createConfig = (options_) => {
 
@@ -24,7 +26,8 @@ const createConfig = (options_) => {
                 './index.js',
                 `!!targetprocess-mashup-webpack-plugin/config-loader?libraryTarget=${mashupName}&outputFile=./mashup.config.js!./config.json`
             ].concat(options.mashupManager ? [] : [
-                '!!targetprocess-mashup-webpack-plugin/manifest-loader!./manifest.json'
+                '!!targetprocess-mashup-webpack-plugin/manifest-loader!./manifest.json',
+                `file?name=./chunks/mashup.ignore!${tmpFile.name}`
             ])
         }
     };
@@ -65,8 +68,7 @@ const createConfig = (options_) => {
 
     config.plugins = [
         new TargetprocessMashupPlugin(mashupName, {
-            useConfig: true,
-            foldersToIgnore: options.mashupManager ? [] : ['chunks']
+            useConfig: true
         }),
         new webpack.DefinePlugin({
             'process.env': {
