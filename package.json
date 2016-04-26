@@ -13,7 +13,10 @@
     "build:library:docs": "shjs scripts/buildLibraryDocs.js;",
     "build:library": "outputPath=build/library; rm -rf $outputPath; NODE_ENV=production webpack --config webpack/library.config.js --output-path $outputPath --progress; npm run build:library:docs;",
     "build:manager": "outputPath=build/manager; rm -rf $outputPath; NODE_ENV=production webpack --config webpack/manager.config.js --output-path $outputPath --progress; cd $outputPath; cat mashup.config.js > tmp.js; echo >> tmp.js; cat index.js >> tmp.js; rm mashup.config.js index.js; mv tmp.js index.js;",
-    "build:all": "npm run build:library && npm run build:manager;"
+    "build:all": "npm run build:library && npm run build:manager;",
+    "preversion": "npm test",
+    "version": "npm run build:all && git add -A build",
+    "postversion": "git push && git push --tags"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.1",
