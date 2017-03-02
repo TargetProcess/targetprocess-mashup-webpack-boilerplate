@@ -21,5 +21,5 @@ Following commands are defined in the `package.json` file:
 
 ## License
 
-MIT (http://www.opensource.org/licenses/mit-license.php)
+MIT (https://opensource.org/licenses/mit-license.php)
 

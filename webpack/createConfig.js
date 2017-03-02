@@ -60,10 +60,8 @@ const createConfig = (options_) => {
     config.postcss = [autoprefixer];
 
     if (!options.production) {
-
         config.debug = true;
         config.devtool = 'eval-source-map';
-
     }
 
     config.plugins = [
@@ -83,21 +81,22 @@ const createConfig = (options_) => {
     ];
 
     if (options.mashupManager) {
-
         config.plugins = config.plugins.concat(new webpack.optimize.LimitChunkCountPlugin({
             maxChunks: 1
         }));
-
     }
 
     if (options.production) {
-
         config.plugins = config.plugins.concat(new webpack.optimize.UglifyJsPlugin({
             compress: {
+                properties: true,
+                screw_ie8: false,
                 warnings: false
+            },
+            output: {
+                screw_ie8: false
             }
         }));
-
     }
 
     config.externals = [
@@ -105,6 +104,8 @@ const createConfig = (options_) => {
         {jquery: 'jQuery'},
         'Underscore',
         {underscore: 'Underscore'},
+        'react',
+        'react-dom',
         /^tp3\//,
         /^tau\//,
         /^tp\//
